@@ -1,0 +1,9 @@
+name: ${name}
+main: ${mainClass}
+version: ${version}
+api-version: 1.13
+author: royalkingkb
+commands:
+  combatloghistory:
+    description: Get history of combat logs for a user
+    permission: ruinscraft.command.combatloghistory
