@@ -45,6 +45,8 @@ public class MySQLCombatLogHistoryStorage implements CombatLogHistoryStorage {
 
             try (Connection connection = getConnection()) {
                 try (PreparedStatement query = connection.prepareStatement("SELECT * FROM combat_log_history WHERE logger = ?;")) {
+                    query.setString(1, username);
+
                     try (ResultSet result = query.executeQuery()) {
                         while (result.next()) {
                             long time = result.getLong("time");

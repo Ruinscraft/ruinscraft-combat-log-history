@@ -39,7 +39,17 @@ public class CombatLogHistoryCommand implements CommandExecutor {
             return true;
         }
 
+        sender.sendMessage(ChatColor.GOLD + "Looking up combat log history for " + lookup + "...");
+
         storage.queryHistory(lookup).thenAccept(result -> {
+            if (result.isEmpty()) {
+                try {
+                    sender.sendMessage(ChatColor.GOLD + "No combat log history for " + lookup);
+                } catch (NullPointerException e) {
+                    // ignore, the CommandSender may have been a player who is now offline...
+                }
+            }
+
             for (CombatLog entry : result) {
                 try {
                     String logger = entry.getLogger();
