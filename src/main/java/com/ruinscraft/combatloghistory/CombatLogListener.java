@@ -64,7 +64,7 @@ public class CombatLogListener implements Listener {
 
             // mark as combat log
             if (damageLog.getTime() + TimeUnit.SECONDS.toMillis(COMBAT_LOG_COOL_DOWN_SECONDS) > System.currentTimeMillis()) {
-                String locationString = player.getLocation().getWorld() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ();
+                String locationString = player.getLocation().getWorld().getName() + "," + player.getLocation().getX() + "," + player.getLocation().getY() + "," + player.getLocation().getZ();
                 CombatLog combatLog = new CombatLog(player.getName(), damageLog.getTime(), locationString, damageLog.getParticipants());
 
                 plugin.getStorage().insertCombatLog(combatLog).thenRun(() -> {
