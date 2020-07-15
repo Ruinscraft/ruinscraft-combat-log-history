@@ -7,7 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class CombatLogHistoryCommand implements CommandExecutor {
@@ -45,15 +47,19 @@ public class CombatLogHistoryCommand implements CommandExecutor {
             if (result.isEmpty()) {
                 try {
                     sender.sendMessage(ChatColor.GOLD + "No combat log history for " + lookup);
-                } catch (NullPointerException e) {
+                } catch (Exception e) {
                     // ignore, the CommandSender may have been a player who is now offline...
                 }
+
+                return;
             }
 
             for (CombatLog entry : result) {
                 try {
                     String logger = entry.getLogger();
-                    LocalDate date = LocalDate.ofEpochDay(entry.getTime());
+                    LocalDate date = Instant.ofEpochMilli(entry.getTime())
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate();
                     String dateString = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                     String locationString = entry.getLocationString();
 
