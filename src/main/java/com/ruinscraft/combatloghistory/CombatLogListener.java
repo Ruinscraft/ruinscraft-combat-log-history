@@ -104,7 +104,9 @@ public class CombatLogListener implements Listener {
         }
 
         public void addParticipant(String username) {
-            participants.add(username);
+            if (!participants.contains(username)) {
+                participants.add(username);
+            }
         }
     }
 

@@ -62,8 +62,9 @@ public class CombatLogHistoryCommand implements CommandExecutor {
                                     .toLocalDate();
                     String dateString = date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                     String locationString = entry.getLocationString();
+                    String participants = String.join(",", entry.getParticipants());
 
-                    sender.sendMessage(ChatColor.GOLD + "> " + logger + " combat logged on " + dateString + " @ " + locationString);
+                    sender.sendMessage(ChatColor.GOLD + "> " + logger + " combat logged on " + dateString + " @ " + locationString + " :: Participants [" + participants + "]");
                 } catch (Exception e) {
                     // ignore, the CommandSender may have been a player who is now offline...
                 }
